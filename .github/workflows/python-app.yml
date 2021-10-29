@@ -49,4 +49,4 @@ jobs:
           git pull origin master
           pip install -r requirements.txt
           pkill gunicorn
-          gunicorn -k uvicorn.workers.UvicornWorker -d app.main:app
+          gunicorn -k uvicorn.workers.UvicornWorker app.main:app --daemon
