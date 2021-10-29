@@ -25,7 +25,7 @@ security = HTTPBasic()
 @router.get("/")
 async def root():
     print(REDIS_CLIENT)
-    return "✨ Main page ✨"
+    return "✨ Main page ✨\n 🔥GitHub actions top!🔥"
 
 
 @router.get("/favicon.ico", include_in_schema=False)
