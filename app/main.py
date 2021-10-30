@@ -1,13 +1,14 @@
 from fastapi import FastAPI
+
 from starlette.middleware.cors import CORSMiddleware
+
 from .endpoints import router
 from .settings import REDIS_CLIENT
-
 
 app = FastAPI(
     title="IceCreamAPI",
     description="This service is MVP (ultra-minimal 😊) of API for mobile app",
-    version="0.0.2",
+    version="0.0.3",
     contact={
         "name": "Sizikov Vitaly",
         "url": "https://vk.com/vitaliksiz",
@@ -33,4 +34,4 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     await REDIS_CLIENT.close()
-    print("INFO:\tRedis connection was closed")
+    print("SUCCESS:\tRedis connection was closed")

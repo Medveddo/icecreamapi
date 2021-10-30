@@ -1,11 +1,20 @@
-from typing import List, Optional
 from datetime import datetime
+from typing import List, Optional
+
 from pydantic import BaseModel
 
 
 class OrderPosition(BaseModel):
     ice_cream_id: int
     quantity: int
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "ice_cream_id": 1,
+                "quantity": 2,
+            }
+        }
 
 
 class Order(BaseModel):
@@ -59,8 +68,8 @@ class IceCream(BaseModel):
         }
 
 
-class Message(BaseModel):
-    message: str
+class ResponceDetail(BaseModel):
+    detail: str
 
 
 class SuccessToken(BaseModel):
