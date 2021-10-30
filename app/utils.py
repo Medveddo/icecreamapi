@@ -36,11 +36,8 @@ class RedisUtils:
 
     @staticmethod
     async def get_all_ice_creams() -> List[IceCream]:
-        result = []
         raw_icecreams = await REDIS_CLIENT.lrange("icecreams", 0, -1)
-        for raw in raw_icecreams:
-            result.append(IceCream.parse_raw(raw))
-        return result
+        return [IceCream.parse_raw(raw) for raw in raw_icecreams][::-1]
 
     @staticmethod
     async def create_ice_cream(icecream: IceCream) -> IceCream:
