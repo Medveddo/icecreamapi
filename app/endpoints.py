@@ -4,7 +4,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from starlette.responses import FileResponse
+from starlette.responses import FileResponse, HTMLResponse
 
 from .models import (
     IceCream,
@@ -22,9 +22,9 @@ router = APIRouter()
 security = HTTPBasic()
 
 
-@router.get("/")
+@router.get("/", response_class=HTMLResponse)
 async def root():
-    return MAIN_PAGE_RESPONSE
+    return MAIN_PAGE_RESPONSE.format(counter=await RedisUtils.get_icecream_count())
 
 
 @router.get("/favicon.ico", include_in_schema=False)

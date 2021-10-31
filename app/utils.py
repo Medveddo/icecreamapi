@@ -40,6 +40,10 @@ class RedisUtils:
         return [IceCream.parse_raw(raw) for raw in raw_icecreams][::-1]
 
     @staticmethod
+    async def get_icecream_count() -> int:
+        return await REDIS_CLIENT.llen("icecreams")
+
+    @staticmethod
     async def create_ice_cream(icecream: IceCream) -> IceCream:
         icecream.id = await RedisUtils.get_new_object_id("icecream")
         await REDIS_CLIENT.lpush("icecreams", icecream.json())

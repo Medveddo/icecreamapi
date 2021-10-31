@@ -1,19 +1,56 @@
+Run locally
+
+```
+docker-compose up
+```
+
+Run the tests:
+
+```
+pytest
+```
+
 Run the application:
 
 ```
 uvicorn app.main:app
 ```
 
-Run the tests:
+Init db:
 
 ```
-python -m unittest app/tests.py
+python -m app.init_db
 ```
 
-TODO: 
+Run redis in docker:
 
-2. create init script to load ice.json to redis
+```
+docker run -p 6379:6379 -d --name=redis redis:alpine
+```
+
+Build image:
+
+```
+docker build --tag=icecreamapi:0.0.4 .
+```
+
+Run container:
+
+```
+docker run --name=icecreamapi -d -p 8000:8000 icecreamapi:0.0.4
+```
+
+Run something inside container(e.g. python -m app.init_db)
+
+```
+docker exec -it <container_id> /bin/sh
+```
+
+TODO:
+
 3. increase test coverage
-4. docker-compose
-5. When add ice_cream load image and store it to static folder
-6. describe Caddy server on host
+4. When add ice_cream load image and store it to static folder
+5. describe Caddy server on host
+6. add project description
+7. https://caddyserver.com/docs/caddyfile/directives/handle_errors -> oops, something goes wrong page
+8. split local packages like flake, isort, black from production
