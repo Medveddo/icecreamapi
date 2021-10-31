@@ -6,7 +6,6 @@ import fakeredis.aioredis
 from fastapi.testclient import TestClient
 
 from .main import app
-from .settings import MAIN_PAGE_RESPONSE
 from .utils import RedisUtils
 
 client = TestClient(app)
@@ -15,7 +14,6 @@ client = TestClient(app)
 def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == MAIN_PAGE_RESPONSE
 
 
 class TestRedisUtils(unittest.IsolatedAsyncioTestCase):
