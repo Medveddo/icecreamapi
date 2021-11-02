@@ -1,10 +1,13 @@
 import hashlib
+import os
 import random
 from datetime import datetime
 from typing import List, Optional
 
+import requests
+
 from .models import IceCream, Order, OrderPosition, UserIn, UserOut
-from .settings import REDIS_CLIENT
+from .settings import REDIS_CLIENT, SERVER_STATIC_PREFIX, STATIC_FOLDER_PATH
 
 
 class HashUtils:
@@ -17,6 +20,19 @@ class HashUtils:
     @staticmethod
     def gen_user_token() -> int:
         return random.randint(1000000000, 2000000000)
+
+
+class ImageUtils:
+    @staticmethod
+    def save_icecream_image_to_static(image_url: str, id: int) -> str:
+        image = requests.get(image_url)
+        file_extension = os.path.splitext(image_url)[-1]
+        file_name = f"icecream_{id}{file_extension}"
+        file_path = f"{STATIC_FOLDER_PATH}icecream_{id}{file_extension}"
+        with open(file_path, "wb") as file:
+            file.write(image.content)
+        print(f"SAVED {image_url} to {file_path}")
+        return f"{SERVER_STATIC_PREFIX}{file_name}"
 
 
 class RedisUtils:
@@ -46,6 +62,9 @@ class RedisUtils:
     @staticmethod
     async def create_ice_cream(icecream: IceCream) -> IceCream:
         icecream.id = await RedisUtils.get_new_object_id("icecream")
+        icecream.img_url = ImageUtils.save_icecream_image_to_static(
+            icecream.img_url, icecream.id
+        )
         await REDIS_CLIENT.lpush("icecreams", icecream.json())
         print(f"INFO: Icecream created ({icecream})")
         return icecream

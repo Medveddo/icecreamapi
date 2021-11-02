@@ -54,3 +54,32 @@ TODO:
 6. add project description
 7. https://caddyserver.com/docs/caddyfile/directives/handle_errors -> oops, something goes wrong page
 8. split local packages like flake, isort, black from production
+
+
+Был православный Caddyfile на проде:
+
+```
+:80
+
+root * home/user/public
+
+handle /static/* {
+        uri strip_prefix /static
+        file_server
+}
+
+```
+
+Сдеал такой (полетит?)
+
+```
+:80
+
+handle /static/* {
+        root * /root/icecreamapi-app/icecreamapi/static
+        uri strip_prefix /static
+        file_server
+}
+
+reverse_proxy localhost:8000
+```

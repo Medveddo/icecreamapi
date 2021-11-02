@@ -4,3 +4,5 @@ __pycache__
 .pytest_cache
 Dockerfile
 docker-compose.yaml
+coverage_html_report
+.coverage

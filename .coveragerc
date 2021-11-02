@@ -1,0 +1,11 @@
+[run]
+command_line=
+    -m app.tests
+omit=
+    venv
+    .vscode
+    __pycache__
+    .pytest_cache
+
+[html]
+directory = coverage_html_report
