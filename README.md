@@ -49,11 +49,12 @@ docker exec -it <container_id> /bin/sh
 TODO:
 
 3. increase test coverage
-4. When add ice_cream load image and store it to static folder
+4. ~~When add ice_cream load image and store it to static folder~~
+4. Fix #1 (download files with no extension)
 5. describe Caddy server on host
 6. add project description
 7. https://caddyserver.com/docs/caddyfile/directives/handle_errors -> oops, something goes wrong page
-8. split local packages like flake, isort, black from production
+8. ~~split local packages like flake, isort, black from production~~
 
 
 Был православный Caddyfile на проде:

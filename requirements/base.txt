@@ -6,8 +6,3 @@ requests
 
 fakeredis
 pytest
-
-flake8
-flake8-import-order
-isort
-black
