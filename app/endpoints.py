@@ -21,6 +21,9 @@ from .utils import HashUtils, RedisUtils
 router = APIRouter()
 security = HTTPBasic()
 
+@router.get("/error", response_class=HTMLResponse)
+async def root():
+    raise HTTPException(502, detail="Service is unavailable")
 
 @router.get("/", response_class=HTMLResponse)
 async def root():
