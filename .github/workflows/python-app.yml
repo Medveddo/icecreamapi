@@ -47,6 +47,6 @@ jobs:
           cd /root/icecreamapi-app/icecreamapi
           source venv/bin/activate
           git pull origin master
-          pip install -r requirements.txt
+          pip install -r requirements/base.txt
           pkill gunicorn
           gunicorn -k uvicorn.workers.UvicornWorker app.main:app --daemon
