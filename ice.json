@@ -11,7 +11,37 @@
             "price": 13.56,
             "weigth": 50.0,
             "img_url": "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQAZobDiwz639i-R5WnShciC00h9hghL8eV1kF8aDE8GhKMA7jDcL_s7JTUSo3ZWifDn-wvzR4lnOu1IGmHkmM"
-        }
+        },
+        {
+            "name": "Bowl of cream",
+            "price": 11.11,
+            "weigth": 60.0,
+            "img_url": "http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/ice-cream.png"
+        },
+        {
+            "name": "Avocado icecream",
+            "price": 19.99,
+            "weigth": 200.0,
+            "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9sEW152bzWypIQ0CKmdkxWnqkb9NP0gNrug&usqp=CAU"
+        },
+        {
+            "name": "Space Jam",
+            "price": 8.50,
+            "weigth": 120.0,
+            "img_url": "https://static.wikia.nocookie.net/nomanssky_gamepedia/images/a/ad/PRODUCT.ICECREAM.png/revision/latest/scale-to-width-down/280?cb=20190823204523"
+        },
+        {
+            "name": "Cube",
+            "price": 5.99,
+            "weigth": 70.0,
+            "img_url": "https://iconarchive.com/download/i73059/klukeart/cubes/Box-20-Ice-Cream-Chocolate.ico"
+        },
+        {
+            "name": "Reddit",
+            "price": 9.99,
+            "weigth": 99.0,
+            "img_url": "https://styles.redditmedia.com/t5_2vypj/styles/communityIcon_suy8h98r45f11.png"
+        } 
     ],
     "users": [
         {
