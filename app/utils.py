@@ -27,6 +27,8 @@ class ImageUtils:
     def save_icecream_image_to_static(image_url: str, id: int) -> str:
         image = requests.get(image_url)
         file_extension = os.path.splitext(image_url)[-1]
+        if not file_extension:
+            file_extension = ".jpg"
         file_name = f"icecream_{id}{file_extension}"
         file_path = f"{STATIC_FOLDER_PATH}icecream_{id}{file_extension}"
         with open(file_path, "wb") as file:

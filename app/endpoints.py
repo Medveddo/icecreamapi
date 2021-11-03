@@ -3,7 +3,6 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-
 from starlette.responses import FileResponse, HTMLResponse
 
 from .models import (
@@ -21,9 +20,11 @@ from .utils import HashUtils, RedisUtils
 router = APIRouter()
 security = HTTPBasic()
 
+
 @router.get("/error", response_class=HTMLResponse)
-async def root():
+async def service_unavailable():
     raise HTTPException(502, detail="Service is unavailable")
+
 
 @router.get("/", response_class=HTMLResponse)
 async def root():

@@ -2,6 +2,8 @@ import os
 
 import aioredis
 
+from .service_utils import ServiceUtils
+
 FAVICON_PATH = "app/static/favicon.ico"
 REDIS_CONNECTION_STRING = os.getenv("REDIS_URL", "redis://localhost")
 
@@ -14,5 +16,5 @@ MAIN_PAGE_RESPONSE = """
     """
 WINDOWS_PLATFORM = False
 SERVER_STATIC_PREFIX = "http://217.71.129.139:4561/static/"
-STATIC_FOLDER_PATH = "/root/icecreamapi-app/icecreamapi/static/"  # windows local - "C:\\Users\\Vitaly\\Desktop\\static\\"
+STATIC_FOLDER_PATH = ServiceUtils().get_static_path()
 REDIS_CLIENT = aioredis.from_url(REDIS_CONNECTION_STRING)
