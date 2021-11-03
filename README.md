@@ -1,80 +1,58 @@
-Run locally
+# Icecream API
+
+This simple project provides REST API for mobile application. It uses Redis for store data. FastAPI as web-framework.
+
+Redis isn't best solution for storing data, but i choose it for this project to get a little practice with it.
+
+> Warning: carefully use redis as database in real production services. You may need look for other DBMS.
+
+## Run locally with docker-compose
 
 ```
 docker-compose up
 ```
 
-Run the tests:
-
-```
-pytest
-```
-
-Run the application:
+## Run with uvicorn
 
 ```
 uvicorn app.main:app
 ```
 
-Init db:
-
-```
-python -m app.init_db
-```
-
-Run redis in docker:
+## You can run redis in docker
 
 ```
 docker run -p 6379:6379 -d --name=redis redis:alpine
 ```
 
-Build image:
+## Run tests:
 
 ```
-docker build --tag=icecreamapi:0.0.4 .
+pytest
 ```
 
-Run container:
+
+## Init db:
 
 ```
-docker run --name=icecreamapi -d -p 8000:8000 icecreamapi:0.0.4
+python -m app.init_db
 ```
 
-Run something inside container(e.g. python -m app.init_db)
+
+## Other docker utils
 
 ```
-docker exec -it <container_id> /bin/sh
+docker build --tag=icecreamapi:0.0.4 .  # Build image
+
+docker run --name=icecreamapi -d -p 8000:8000 icecreamapi:0.0.4  # Run container with app
+
+docker exec -it <container_id> /bin/sh  # Run something inside container(e.g. python -m app.init_db)
 ```
 
-TODO:
-
-3. increase test coverage
-4. ~~When add ice_cream load image and store it to static folder~~
-4. Fix #1 (download files with no extension)
-5. describe Caddy server on host
-6. add project description
-7. https://caddyserver.com/docs/caddyfile/directives/handle_errors -> oops, something goes wrong page
-8. ~~split local packages like flake, isort, black from production~~
-
-
-Был православный Caddyfile на проде:
+## Caddyfile in production:
 
 ```
 :80
 
-root * home/user/public
-
-handle /static/* {
-        uri strip_prefix /static
-        file_server
-}
-
-```
-
-Сдеал такой (полетит?)
-
-```
-:80
 
 handle /static/* {
         root * /root/icecreamapi-app/icecreamapi/static
@@ -82,5 +60,19 @@ handle /static/* {
         file_server
 }
 
-reverse_proxy localhost:8000
+reverse_proxy localhost:8000 {
+    @error status 500 502 503
+    handle_response @error {
+        respond "{http.reverse_proxy.status_text}
+                Ooops. Seems that you got error.
+                Something goes wrong.
+                If problem occur again, please contact me on Telegram @Medveddo."
+    }
+}
 ```
+
+## Production server supplied with this software:
+
+1. Caddy web server
+2. Redis server
+3. Python
