@@ -1,0 +1,14 @@
+:80
+
+handle /static/* {
+        root * /srv
+        uri strip_prefix /static
+        file_server
+}
+
+reverse_proxy api:8000 {
+    @error status 500 503
+    handle_response @error {
+        respond "{http.reverse_proxy.status_text}. Find errors in code LOL :)"
+    }
+}

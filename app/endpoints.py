@@ -21,9 +21,20 @@ router = APIRouter()
 security = HTTPBasic()
 
 
-@router.get("/error", response_class=HTMLResponse)
+@router.get(
+    path="/error",
+    tags=["service"],
+    summary="Always unavailable",
+    responses={
+        503: {
+            "content": {
+                "application/json": {"example": [{"detail": "service is unavailable"}]}
+            }
+        }
+    },
+)
 async def service_unavailable():
-    raise HTTPException(502, detail="Service is unavailable")
+    raise HTTPException(503, detail="service is unavailable")
 
 
 @router.get("/", response_class=HTMLResponse)

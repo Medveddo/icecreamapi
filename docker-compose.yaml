@@ -2,11 +2,23 @@ version: "3.9"
 services:
   api:
     build: .
+    image: icecreamapi
     environment:
       - REDIS_URL=redis://redis
+      - LOCAL_DEV=1
     depends_on:
       - redis
-    ports:
-      - "8000:8000"
+    volumes:
+      - static-content:/root/icecreamapi-app/icecreamapi/static/
   redis:
     image: "redis:alpine"
+  caddy:
+    image: "caddy:alpine"
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - static-content:/srv
+
+volumes:
+  static-content:

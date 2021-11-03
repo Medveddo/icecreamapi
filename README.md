@@ -9,7 +9,7 @@ Redis isn't best solution for storing data, but i choose it for this project to 
 ## Run locally with docker-compose
 
 ```
-docker-compose up
+docker-compose up --build
 ```
 
 ## Run with uvicorn
@@ -61,7 +61,7 @@ handle /static/* {
 }
 
 reverse_proxy localhost:8000 {
-    @error status 500 502 503
+    @error status 500 503
     handle_response @error {
         respond "{http.reverse_proxy.status_text}
                 Ooops. Seems that you got error.
