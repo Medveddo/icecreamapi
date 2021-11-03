@@ -6,8 +6,11 @@ from .settings import REDIS_CLIENT
 
 app = FastAPI(
     title="IceCreamAPI",
-    description="This service is MVP (ultra-minimal 😊) of API for mobile app. Настюха, оно вроде работает! Запускай приложуху!!! (только сначала сделай xD)",
-    version="0.0.6",
+    description=(
+        "This service is MVP (ultra-minimal 😊) of API for mobile app."
+        "Настюха, оно вроде работает! Запускай приложуху!!! (только сначала сделай xD)"
+    ),
+    version="0.0.7",
     contact={
         "name": "Sizikov Vitaly",
         "url": "https://vk.com/vitaliksiz",

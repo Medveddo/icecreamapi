@@ -1,23 +1,36 @@
-import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import fakeredis.aioredis
+from fastapi.testclient import TestClient
+import pytest
 
+from .main import app
+from .models import IceCream
 from .utils import RedisUtils
 
+client = TestClient(app)
 
-class TestRedisUtils(unittest.IsolatedAsyncioTestCase):
-    async def asyncSetUp(self):
-        self.redis = fakeredis.aioredis.FakeRedis()
+global_fake_redis = fakeredis.aioredis.FakeRedis()
 
-    async def asyncTearDown(self):
-        await self.redis.close()
 
-    async def test_connection(self):
-        assert await self.redis.incr("health") == 1
+@pytest.fixture()
+@pytest.mark.asyncio
+@patch("app.utils.REDIS_CLIENT", global_fake_redis)
+@patch(
+    "app.utils.ImageUtils.save_icecream_image_to_static", return_value="saved_file.jppg"
+)
+async def one_icecream_fixture(save_ice_mock: MagicMock) -> IceCream:
+    ice_cream = IceCream(
+        name="ice_cream_1", price=10, weigth=10, img_url="http://1.2.3.4/ice_image.jpg"
+    )
+    return await RedisUtils.create_ice_cream(ice_cream)
 
-    async def test_get_new_object_id(self):
-        with patch("app.utils.REDIS_CLIENT", self.redis):
-            assert await RedisUtils.get_new_object_id("apple") == 1
-            assert await RedisUtils.get_new_object_id("apple") == 2
-            assert await RedisUtils.get_new_object_id("user") == 1
+
+@patch("app.utils.REDIS_CLIENT", global_fake_redis)
+@pytest.mark.asyncio
+async def test_read_main(one_icecream_fixture: IceCream):
+    response = client.get("/api/icecream")
+    assert response.status_code == 200
+    assert one_icecream_fixture.json().replace(" ", "") == response.content.decode(
+        "utf-8"
+    ).strip("[").strip("]")
