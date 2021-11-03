@@ -12,6 +12,8 @@ Redis isn't best solution for storing data, but i choose it for this project to 
 docker-compose up --build
 ```
 
+Then go to ```http://localhost```
+
 ## Run with uvicorn
 
 ```
