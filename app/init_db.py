@@ -6,13 +6,13 @@ from .settings import WINDOWS_PLATFORM
 from .utils import RedisUtils
 
 
-async def get_file_dict() -> dict:
+def get_file_dict() -> dict:
     with open("ice.json", "r") as file:
         return json.loads(file.read())
 
 
 async def load_data_from_file():
-    data = await get_file_dict()
+    data = get_file_dict()
     for user in data["users"]:
         await RedisUtils.create_user(UserIn(**user))
 

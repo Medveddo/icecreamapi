@@ -5,13 +5,13 @@ from pydantic import BaseModel
 
 
 class OrderPosition(BaseModel):
-    ice_cream_id: int
+    icecream_id: int
     quantity: int
 
     class Config:
         schema_extra = {
             "example": {
-                "ice_cream_id": 1,
+                "icecream_id": 1,
                 "quantity": 2,
             }
         }
@@ -54,16 +54,16 @@ class IceCream(BaseModel):
     id: Optional[int]
     name: str
     price: float
-    weigth: float
+    weight: float
     img_url: str
 
     class Config:
         schema_extra = {
             "example": {
                 "name": "Hot Summer",
-                "img_url": "https://images.google.com/amazing_cat.jpg",
+                "img_url": "https://media-cdn.tripadvisor.com/media/photo-s/18/7c/da/68/bonmot-ice-cream.jpg",
                 "price": 35.4,
-                "weigth": 50.0,
+                "weight": 50.0,
             }
         }
 

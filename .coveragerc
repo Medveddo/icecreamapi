@@ -1,6 +1,6 @@
 [run]
 command_line=
-    -m app.tests
+    -m pytest
 omit=
     venv
     .vscode

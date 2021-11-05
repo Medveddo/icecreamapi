@@ -29,7 +29,9 @@ docker run -p 6379:6379 -d --name=redis redis:alpine
 ## Run tests:
 
 ```
-pytest
+pytest -v -s
+
+coverage run && coverage html
 ```
 
 
@@ -78,3 +80,7 @@ reverse_proxy localhost:8000 {
 1. Caddy web server
 2. Redis server
 3. Python
+
+TODO:
+
+1. put and delete icecreams (maybe orders)

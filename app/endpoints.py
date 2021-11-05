@@ -60,14 +60,14 @@ async def favicon():
                             "id": 1,
                             "name": "Hot Summer",
                             "price": 15.89,
-                            "weigth": 70.0,
+                            "weight": 70.0,
                             "img_url": "https://media-cdn.tripadvisor.com/media/photo-s/18/7c/da/68/bonmot-ice-cream.jpg",
                         },
                         {
                             "id": 2,
                             "name": "Blue Water",
                             "price": 13.56,
-                            "weigth": 50.0,
+                            "weight": 50.0,
                             "img_url": "https://media-cdn.tripadvisor.com/media/photo-s/18/7c/da/68/bonmot-ice-cream.jpg",
                         },
                     ]
@@ -93,7 +93,7 @@ async def get_icecreams() -> List[IceCream]:
                             "id": 1,
                             "name": "Hot Summer",
                             "price": 15.89,
-                            "weigth": 70.0,
+                            "weight": 70.0,
                             "img_url": "https://media-cdn.tripadvisor.com/media/photo-s/18/7c/da/68/bonmot-ice-cream.jpg",
                         }
                     ]
@@ -106,7 +106,7 @@ async def get_icecreams() -> List[IceCream]:
     },
 )
 async def get_icecream_by_id(item_id: int) -> IceCream:
-    ice_cream = await RedisUtils.get_ice_cream_by_id(item_id)
+    ice_cream = await RedisUtils.get_icecream_by_id(item_id)
     if not ice_cream:
         raise HTTPException(status_code=404, detail="not found")
     return ice_cream
@@ -204,8 +204,8 @@ async def login(credentials: HTTPBasicCredentials = Depends(security)) -> Succes
                         "user_login": "bestboss",
                         "created_at": datetime(2021, 11, 11, 11, 11, 11),
                         "positions": [
-                            OrderPosition(ice_cream_id=1, quantity=2),
-                            OrderPosition(ice_cream_id=2, quantity=3),
+                            OrderPosition(icecream_id=1, quantity=2),
+                            OrderPosition(icecream_id=2, quantity=3),
                         ],
                     }
                 }
@@ -248,8 +248,8 @@ async def make_order(
                             "user_login": "bestboss",
                             "created_at": datetime(2021, 11, 11, 11, 11, 11),
                             "positions": [
-                                OrderPosition(ice_cream_id=1, quantity=2),
-                                OrderPosition(ice_cream_id=2, quantity=3),
+                                OrderPosition(icecream_id=1, quantity=2),
+                                OrderPosition(icecream_id=2, quantity=3),
                             ],
                         },
                         {
@@ -257,8 +257,8 @@ async def make_order(
                             "user_login": "bestboss",
                             "created_at": datetime(2021, 12, 12, 12, 12, 12),
                             "positions": [
-                                OrderPosition(ice_cream_id=4, quantity=1),
-                                OrderPosition(ice_cream_id=5, quantity=1),
+                                OrderPosition(icecream_id=4, quantity=1),
+                                OrderPosition(icecream_id=5, quantity=1),
                             ],
                         },
                     ]

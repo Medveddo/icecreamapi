@@ -10,7 +10,7 @@ MAIN_PAGE_RESPONSE = """
     <h2><a href="/docs">Docs</a></h2>
     """
 WINDOWS_PLATFORM = False
-HOST = "localhost" if os.getenv("LOCAL_DEV") else "217.71.129.139:4561"
+HOST = os.getenv("ICECREAMAPI_HOST", "localhost")
 SERVER_STATIC_PREFIX = f"http://{HOST}/static/"
 STATIC_FOLDER_PATH = "/root/icecreamapi-app/icecreamapi/static/"
 REDIS_CONNECTION_STRING = os.getenv("REDIS_URL", "redis://localhost")
