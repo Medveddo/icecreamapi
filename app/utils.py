@@ -84,6 +84,20 @@ class RedisUtils:
         await REDIS_CLIENT.hset(f"icecream:{icecream.id}", mapping=icecream.dict())
         print(f"INFO: Icecream created ({icecream})")
         return icecream
+    
+    @staticmethod
+    async def update_icecream(icecream: IceCream) -> IceCream:
+        # todo new image url
+        await REDIS_CLIENT.delete(f"icecream:{icecream.id}")
+        await REDIS_CLIENT.hset(f"icecream:{icecream.id}", mapping=icecream.dict())
+        print(f"INFO: Icecream updated ({icecream})")
+        return icecream
+
+    @staticmethod
+    async def delete_icecream(icecream_id: int) -> bool:
+        await REDIS_CLIENT.execute_command("COPY", f"icecream:{icecream_id}", f"deleted:icecream:{icecream_id}")
+        await REDIS_CLIENT.lrem("icecream_ids", 0, icecream_id)
+        return bool(await REDIS_CLIENT.delete(f"icecream:{icecream_id}"))
 
     @staticmethod
     async def create_user(user: UserIn) -> Optional[UserOut]:

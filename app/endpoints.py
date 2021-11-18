@@ -3,7 +3,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from starlette.responses import FileResponse, HTMLResponse
+from starlette.responses import FileResponse, HTMLResponse, Response
 
 from .models import (
     IceCream,
@@ -283,3 +283,36 @@ async def get_user_orders(
     ) or not await RedisUtils.user_has_valid_password(user):
         raise HTTPException(status_code=401, detail="invalid credentials")
     return await RedisUtils.get_user_orders(user.login)
+
+
+@router.put(
+    path="/api/icecream/{item_id}",
+    response_model=IceCream,
+    status_code=200,
+    tags=["icecream"],
+    summary="Update icecream",
+)
+async def update_icecream(item_id: int, icecream: IceCream):
+    saved_icecream = await RedisUtils.get_icecream_by_id(item_id)
+    if not saved_icecream:
+        raise HTTPException(404, f"Icecream with id {item_id} not found")
+    update_data = icecream.dict(exclude_unset=True)
+    saved_icecream_dict = saved_icecream.dict()
+    saved_icecream_dict.update(update_data)
+    updated_icecream = IceCream.parse_obj(saved_icecream_dict)
+    return await RedisUtils.update_icecream(updated_icecream)
+
+
+
+@router.delete(
+    path="/api/icecream/{item_id}",
+    status_code=204,
+    tags=["icecream"],
+    summary="Delete icecream"
+)
+async def delete_icecream(item_id: int):
+    icecream = await RedisUtils.get_icecream_by_id(item_id)
+    if not icecream:
+        raise HTTPException(404, f"Icecream with id {item_id} not found")
+    await RedisUtils.delete_icecream(item_id)
+    return Response(status_code=204)

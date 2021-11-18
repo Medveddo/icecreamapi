@@ -6,3 +6,4 @@ Dockerfile
 docker-compose.yaml
 coverage_html_report
 .coverage
+.testmondata

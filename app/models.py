@@ -51,11 +51,11 @@ class UserIn(BaseModel):
 
 
 class IceCream(BaseModel):
-    id: Optional[int]
-    name: str
-    price: float
-    weight: float
-    img_url: str
+    id: Optional[int] = None
+    name: Optional[str] = None
+    price: Optional[float] = 0
+    weight: Optional[float] = 0
+    img_url: Optional[str] = None
 
     class Config:
         schema_extra = {
