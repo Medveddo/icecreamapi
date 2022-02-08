@@ -80,7 +80,3 @@ reverse_proxy localhost:8000 {
 1. Caddy web server
 2. Redis server
 3. Python
-
-TODO:
-
-1. put and delete icecreams (maybe orders)
